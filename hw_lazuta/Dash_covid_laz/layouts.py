@@ -4,6 +4,7 @@ from datetime import date
 
 from callbacks import *
 
+
 """
 layout - of the app and it describes what the appcovd.py looks like
  1. main_page with graphs (all_covid_map, all_covid_barh, treemap)
@@ -37,29 +38,28 @@ main_page = html.Div([
             className="mr-1",
             group=True),
         dbc.Button(id="btn_cases",
-            n_clicks_timestamp=1,
-            children='Cases',
-            color="primary",
-            className="mr-1"),
+                   n_clicks_timestamp=1,
+                   children='Cases',
+                   color="primary",
+                   className="mr-1"),
         dbc.Button(id="btn_deaths",
-            n_clicks_timestamp=0,
-            children='Deaths',
-            color="danger",
-            className="mr-1"),
-        dbc.Button(id="update",
-            n_clicks=0,
-            children='Update_data',
-            color='info',
-            outline=True,
-            className="mr-1"),
-        dbc.Alert(id="alert_data", children='', is_open=False),
+                   n_clicks_timestamp=0,
+                   children='Deaths',
+                   color="danger",
+                   className="mr-1"),
+        dbc.Button("Update_data",
+                   id="update",
+                   n_clicks=0,
+                   color='info',
+                   outline=True,
+                   className="mr-1")
         ], className='mb-3'),
 
     dcc.Graph(id='all_covid_map', figure={}, style={'width': '100%',
                                                     'height': '500px'}),
 
     dcc.Graph(id='all_covid_barh', figure={}, style={'width': '100%',
-                                                    'height': '350px'}),
+                                                     'height': '350px'}),
 
     dcc.Graph(id='treemap', figure={}, style={'width': '100%',
                                               'height': '700px'})
@@ -129,7 +129,7 @@ pghronolog_layout = html.Div([
                    className="mr-1"),
         html.Tr(className='mr-3'),
         html.H4(html.B('Сhoice Date reported:'),
-            className='text-left text-link mr-1'),
+                className='text-left text-link mr-1'),
         dcc.DatePickerRange(id='date_picker',
                             min_date_allowed=date(2020, 1, 3),
                             display_format='Y-MM-DD',
@@ -139,9 +139,10 @@ pghronolog_layout = html.Div([
                             with_portal=True
                             )
     ], className='mb-3'),
-
     html.H4('Chronology of the epidemic by continents:'),
-    dcc.Graph(id="sunburst", style={'width': '100%', 'height': '700px'}),
+    html.Br(),
+    dcc.Graph(id="sunburst", style={'width': '100%',
+                                    'height': '700px'}),
     html.Br(),
     html.H5(f"Chronology of the world epidemic by date: "),
     dcc.Graph(id='map_covid_date', figure={}, style={'width': '100%',

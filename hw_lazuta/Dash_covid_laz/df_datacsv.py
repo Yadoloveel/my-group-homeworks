@@ -5,14 +5,14 @@ import json
 
 def urlcsv():
     """
-    read_csv file from who.int & save to data/WHO_global_data.csv
+    read_csv file from site who.int and save to data/WHO_global_data.csv
     :return: None
     """
     df_urlcsv = pd.read_csv(
                          'https://covid19.who.int/WHO-COVID-19-global-data.csv'
                          )
     df_urlcsv.to_csv(r'data/WHO_global_data.csv', index=False)
-    return None
+    # return None
 
 
 # global df from 'data/WHO_global_data.csv'-----
@@ -20,7 +20,7 @@ df_csv = pd.read_csv('data/WHO_global_data.csv')
 df = df_csv.copy(deep=True)
 
 # Open data/countries.geo.json counties for graph all_covid_map
-with open('/home/nglaz/MYPY/lazpy/Dash_covid_laz/data/'
+with open('C:/Users/nglaz/PycharmProjects/dash_covid_laz/data/'
           'countries.geo.json') as response:
     counties = json.load(response)
 
@@ -51,9 +51,9 @@ def allsumhead():
     """
     cases = space_num(groupmax()['Cumulative_cases'].sum())
     deaths = space_num(groupmax()['Cumulative_deaths'].sum())
-    header = dcc.Markdown(f"#### Globally, there have been confirmed cases of "
-                          f"(COVID-19) - **{cases}**, including - "
-                          f"_**{deaths}**_ deaths.")
+    header = dcc.Markdown(f"#### At **{date_head()}**, globally, there have "
+                          f"been confirmed cases of (COVID-19) - **{cases}**, "
+                          f"including - _**{deaths}**_ deaths.")
     return header
 
 
@@ -100,10 +100,10 @@ def topScatter1(sub_state):
     :param sub_state:
     :return: Newcas
     """
-    Newcas = sub_state[max(sub_state['Date_reported']) ==
+    newcas = sub_state[max(sub_state['Date_reported']) ==
                        sub_state['Date_reported']].reset_index()
-    Newcas = Newcas['New_cases'][0]
-    return Newcas
+    newcas = newcas['New_cases'][0]
+    return newcas
 
 
 def topScatter2(sub_state):
@@ -112,16 +112,16 @@ def topScatter2(sub_state):
     :param sub_state:
     :return: Newdeth
     """
-    Newdeth = sub_state[max(sub_state['Date_reported']) ==
+    newdeth = sub_state[max(sub_state['Date_reported']) ==
                         sub_state['Date_reported']].reset_index()
-    Newdeth = Newdeth['New_deaths'][0]
-    return Newdeth
+    newdeth = newdeth['New_deaths'][0]
+    return newdeth
 
 
 def region_hrnlg(start_date, end_date):
     """
     Create df WHO_region by 'WHO_region','Country'
-    for graphs sunburst page_hronolog1 with DatePickerRange
+    for graphs sunburst page_horology1 with DatePickerRange
     :param start_date:
     :param end_date:
     :return: hrnlg1
